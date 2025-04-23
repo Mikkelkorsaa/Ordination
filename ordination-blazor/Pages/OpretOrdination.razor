@@ -115,7 +115,7 @@
         {
             AnbefaletDosisDTO dto = await apiService.GetAnbefaletDosisPerDøgn(patient.id, laegemiddel);
             AnbefaletDosisPerDøgn = dto.anbefaletDosis;
-            Console.WriteLine(AnbefaletDosisPerDøgn);
+            Console.WriteLine($"anbefalet dosis: {AnbefaletDosisPerDøgn}");
         }
     }
 
