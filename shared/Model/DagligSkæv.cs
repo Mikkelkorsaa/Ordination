@@ -21,9 +21,11 @@ public class DagligSkæv : Ordination {
 		return base.antalDage() * doegnDosis();
 	}
 
-	public override double doegnDosis() {
-		// TODO: Implement!
-        return -1;
+	public override double doegnDosis()
+	{
+		double result = 0;
+		doser.ForEach(d => result += d.antal);
+		return result;
 	}
 
 	public override String getType() {
