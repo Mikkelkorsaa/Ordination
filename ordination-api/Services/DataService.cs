@@ -131,26 +131,55 @@ public class DataService
     }
 
     public PN OpretPN(int patientId, int laegemiddelId, double antal, DateTime startDato, DateTime slutDato) {
-        // TODO: Implement!
-        return null!;
+        var patient = db.Patienter.Find(patientId);
+        var laegemiddel = db.Laegemiddler.Find(laegemiddelId);
+        var pn = new PN(startDato, slutDato, antal, laegemiddel);
+        patient.ordinationer.Add(pn);
+        db.PNs.Add(pn);
+        db.SaveChanges();
+        return pn;
     }
 
     public DagligFast OpretDagligFast(int patientId, int laegemiddelId, 
         double antalMorgen, double antalMiddag, double antalAften, double antalNat, 
         DateTime startDato, DateTime slutDato) {
 
-        // TODO: Implement!
-        return null!;
+        var patient = db.Patienter.Find(patientId);
+        var laegemiddel = db.Laegemiddler.Find(laegemiddelId);
+        var dagligFast = new DagligFast(startDato, slutDato, laegemiddel, antalMorgen, antalMiddag, antalAften, antalNat);
+        patient.ordinationer.Add(dagligFast);
+        db.DagligFaste.Add(dagligFast);
+        db.SaveChanges();
+        return dagligFast;
     }
 
     public DagligSkæv OpretDagligSkaev(int patientId, int laegemiddelId, Dosis[] doser, DateTime startDato, DateTime slutDato) {
-        // TODO: Implement!
-        return null!;
+        var patient = db.Patienter.Find(patientId);
+        var laegemiddel = db.Laegemiddler.Find(laegemiddelId);
+        var dagligSkaev = new DagligSkæv(startDato, slutDato, laegemiddel, doser);
+        patient.ordinationer.Add(dagligSkaev);
+        db.DagligSkæve.Add(dagligSkaev);
+        db.SaveChanges();
+        return dagligSkaev;
     }
 
     public string AnvendOrdination(int id, Dato dato) {
-        // TODO: Implement!
-        return null!;
+        var ordination = db.Ordinationer.Find(id);
+        if (ordination == null) {
+            return "Ordination ikke fundet";
+        }
+
+        if (dato.dato < ordination.startDen || dato.dato > ordination.slutDen) {
+            return "Dato er ikke indenfor ordinationens gyldighedsperiode";
+        }
+
+        if (ordination is PN pn) {
+            pn.dates.Add(dato);
+            db.SaveChanges();
+            return "PN ordination anvendt";
+        }
+
+        return "Ordination kunne ikke anvendes";
     }
 
     /// <summary>

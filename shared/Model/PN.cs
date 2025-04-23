@@ -27,9 +27,9 @@ public class PN : Ordination {
     }
 
     public override double doegnDosis() {
-	    if (dates.Count() < 1) return -1;
-    	if (dates.Count() == 1) return antalEnheder;
-	    return samletDosis() / (dates[dates.Count()-1].dato - dates[0].dato).Days;
+	    if (!dates.Any()) return 0;
+    	if (dates.Count == 1) return antalEnheder;
+	    return samletDosis() / (dates.Max()!.dato - dates.Min()!.dato).Days + 1;
     }
     
     public override double samletDosis() {
