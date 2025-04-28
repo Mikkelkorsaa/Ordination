@@ -131,8 +131,23 @@ public class DataService
     }
 
     public PN OpretPN(int patientId, int laegemiddelId, double antal, DateTime startDato, DateTime slutDato) {
+        if (patientId <= 0 || laegemiddelId <= 0)
+            throw new ArgumentException("Patient ID and Laegemiddel ID must be greater than 0");
+        
+        if (antal <= 0)
+            throw new ArgumentException("Antal must be greater than 0");
+            
+        if (startDato >= slutDato)
+            throw new ArgumentException("Start date must be before end date");
+        
         var patient = db.Patienter.Find(patientId);
+        if (patient == null)
+            throw new ArgumentException("Patient not found");
+            
         var laegemiddel = db.Laegemiddler.Find(laegemiddelId);
+        if (laegemiddel == null)
+            throw new ArgumentException("Laegemiddel not found");
+            
         var pn = new PN(startDato, slutDato, antal, laegemiddel);
         patient.ordinationer.Add(pn);
         db.PNs.Add(pn);
@@ -143,9 +158,27 @@ public class DataService
     public DagligFast OpretDagligFast(int patientId, int laegemiddelId, 
         double antalMorgen, double antalMiddag, double antalAften, double antalNat, 
         DateTime startDato, DateTime slutDato) {
-
+        
+        if (patientId <= 0 || laegemiddelId <= 0)
+            throw new ArgumentException("Patient ID and Laegemiddel ID must be greater than 0");
+            
+        if (startDato >= slutDato)
+            throw new ArgumentException("Start date must be before end date");
+    
+        if (antalMorgen < 0 || antalMiddag < 0 || antalAften < 0 || antalNat < 0)
+            throw new ArgumentException("Antal values cannot be negative");
+        
+        if (antalMorgen + antalMiddag + antalAften + antalNat == 0)
+            throw new ArgumentException("Antal values cannot be 0");
+    
         var patient = db.Patienter.Find(patientId);
+        if (patient == null)
+            throw new ArgumentException("Patient not found");
+            
         var laegemiddel = db.Laegemiddler.Find(laegemiddelId);
+        if (laegemiddel == null)
+            throw new ArgumentException("Laegemiddel not found");
+    
         var dagligFast = new DagligFast(startDato, slutDato, laegemiddel, antalMorgen, antalMiddag, antalAften, antalNat);
         patient.ordinationer.Add(dagligFast);
         db.DagligFaste.Add(dagligFast);
