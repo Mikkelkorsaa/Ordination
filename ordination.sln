@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ordination-api", "ordination-api\ordination-api.csproj", "{766D8CDB-4CE5-4E55-A313-139C3A0E0378}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ordination-blazor", "ordination-blazor\ordination-blazor.csproj", "{D54D66DF-B502-4262-9C03-49C8CD54C644}"
+	ProjectSection(ProjectDependencies) = postProject
+		{766D8CDB-4CE5-4E55-A313-139C3A0E0378} = {766D8CDB-4CE5-4E55-A313-139C3A0E0378}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shared", "shared\shared.csproj", "{6D34AED8-B41E-4243-91F4-44F9F8596E8F}"
 EndProject
