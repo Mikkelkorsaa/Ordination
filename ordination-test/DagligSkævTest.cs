@@ -19,8 +19,8 @@ public class DagligSkævTest
     public void OpretDosisTest()
     {
         _ds.doser.Add(new Dosis(new DateTime(2030, 06, 15, 10, 0 ,0), 5));
-        Assert.AreEqual(5, _ds.doser[0]);
-        Assert.AreNotEqual(4, _ds.doser[0]);
+        Assert.AreEqual(5, _ds.doser[0].antal);
+        Assert.AreNotEqual(4, _ds.doser[0].antal);
     }
 
     [TestMethod]
@@ -48,6 +48,6 @@ public class DagligSkævTest
     [TestMethod]
     public void GetTypeTest()
     {
-        Assert.AreEqual("DagligSkæv", _ds.GetType());
+        Assert.AreEqual("DagligSkæv", _ds.getType());
     }
 }

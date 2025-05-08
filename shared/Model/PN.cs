@@ -26,10 +26,17 @@ public class PN : Ordination {
 	    return false;
     }
 
-    public override double doegnDosis() {
+    public override double doegnDosis()
+    {
 	    if (!dates.Any()) return 0;
-    	if (dates.Count == 1) return antalEnheder;
-	    return samletDosis() / (dates.Max()!.dato - dates.Min()!.dato).Days + 1;
+	    if (dates.Count == 1) return antalEnheder;
+
+	    // Compute Max and Min directly on the 'dato' property of 'Dato' objects
+	    DateTime start = dates.Min(d => d.dato);
+	    DateTime end = dates.Max(d => d.dato);
+
+	    // Divide samletDosis by the span (total days), adding one to avoid division by zero
+	    return samletDosis() / ((end - start).Days + 1);
     }
     
     public override double samletDosis() {

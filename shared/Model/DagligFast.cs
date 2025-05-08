@@ -33,7 +33,7 @@ public class DagligFast : Ordination {
 		return doser;
 	}
 
-	public override String getType() {
+	public override string getType() {
 		return "DagligFast";
 	}
 }

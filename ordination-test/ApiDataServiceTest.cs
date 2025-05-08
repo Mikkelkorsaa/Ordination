@@ -100,7 +100,7 @@ public class DataServiceTest
         );
 
         Assert.IsNotNull(dagligFast);
-        Assert.AreEqual(0.0001, dagligFast.MorgenDosis);
+        Assert.AreEqual(0.0001, dagligFast.MorgenDosis.antal);
     }
     
     [TestMethod]

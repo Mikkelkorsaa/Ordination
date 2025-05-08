@@ -28,7 +28,7 @@ public class DagligSkæv : Ordination {
 		return result;
 	}
 
-	public override String getType() {
+	public override string getType() {
 		return "DagligSkæv";
 	}
 }
